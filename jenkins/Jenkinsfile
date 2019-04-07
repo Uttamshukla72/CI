@@ -4,8 +4,7 @@ pipeline {
     stages {
         stage('checkout SCM') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Uttamshukla72/CI.git']]])
-              
+                git 'https://github.com/Uttamshukla72/CI.git'
             }
         }
         stage('Build') {
