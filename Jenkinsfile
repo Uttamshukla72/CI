@@ -7,7 +7,7 @@ pipeline {
 		// Fixed Parameters - *** DO NOT CHANGE ***
 		buildNumber = "${BUILD_ID}"
 		buildPackage = "Fusion-${env.buildNumber}-project.zip"
-		mavenRepository = "D:\\Maven\\.m2\\repository\\com\\sse\\retail\\Fusion"
+		mavenRepository = "D:\\Maven\\.m2\\repository\\com\\Fusion"
 		stageDir = "BuildPackages\\${env.buildNumber}"
 		targetStageDir = "BuildPackages/${env.buildNumber}"
 		Build_Package = "/products/oracle/stage/release/${env.targetStageDir}/Fusion-${env.buildNumber}"
@@ -26,7 +26,7 @@ pipeline {
 						<p>Environment - ${slaveLabel}</p>
                         <p>Deployment Owner - ${BUILD_USER}</p>
                         <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
-                        to: "SB14762@sse.com, VY23150@sse.com"
+                        to: "uttam.shukla72@gmail.com"
                     )
 				    echo 'Validate Environment Variables'
 					echo "${slaveLabel}"
@@ -88,7 +88,7 @@ pipeline {
 									echo 'This is Export SOA MDS'
 									sh """
 									cd ${env.Build_Package}/Scripts
-									./sse_stp_export_soa_mds.sh ExportedMDS_\$(date '+%d%m%Y_%H%M%S').zip
+									./ssh_stp_export_soa_mds.sh ExportedMDS_\$(date '+%d%m%Y_%H%M%S').zip
 									"""
 								}
 							}
@@ -99,7 +99,7 @@ pipeline {
 									echo 'This is Tokenise SOA MDS'
 									sh """
 									cd ${env.Build_Package}/Scripts
-									sh ./deploy_mtp_fusion.sh SOA tokenisation_mds ${env.Build_Package}
+									sh ./deploy.sh SOA tokenisation_mds ${env.Build_Package}
 									"""
 								}
 							}
@@ -110,7 +110,7 @@ pipeline {
 									echo 'This is Tokenise SOA Composite - default'
 									sh """
 									cd ${env.Build_Package}/Scripts
-									sh ./deploy_mtp_fusion.sh SOA tokenisation_soa_default ${env.Build_Package}
+									sh ./deploy.sh SOA tokenisation_soa_default ${env.Build_Package}
 									"""
 								}
 							}
@@ -121,7 +121,7 @@ pipeline {
 									echo 'This is Tokenise SOA Composite - DCCi'
 									sh """
 									cd ${env.Build_Package}/Scripts
-									sh ./deploy_mtp_fusion.sh SOA tokenisation_soa_DCCI ${env.Build_Package}
+									sh ./deploy.sh SOA tokenisation_soa_DCCI ${env.Build_Package}
 									"""
 								}
 							}
@@ -132,7 +132,7 @@ pipeline {
 									echo 'This is Tokenise SOA Composite - CCB2'
 									sh """
 									cd ${env.Build_Package}/Scripts
-									sh ./deploy_mtp_fusion.sh SOA tokenisation_soa_CCB2 ${env.Build_Package}
+									sh ./deploy.sh SOA tokenisation_soa_CCB2 ${env.Build_Package}
 									"""
 								}
 							}
@@ -145,7 +145,7 @@ pipeline {
 									cd ${env.Build_Package}/Scripts
 									sh ./deploy_mtp_fusion.sh SOA mds ${env.Build_Package}
 									cd ${env.Build_Package}/Scripts
-									./sse_stp_export_soa_mds.sh ExportedMDS_\$(date '+%d%m%Y_%H%M%S').zip
+									./ssh_stp_export.sh ExportedMDS_\$(date '+%d%m%Y_%H%M%S').zip
 									"""
 								}
 							}
@@ -156,7 +156,7 @@ pipeline {
 									echo 'This is Deploy SOA Composite - default'
 									sh """
 									cd ${env.Build_Package}/Scripts
-									sh ./deploy_mtp_fusion.sh SOA composite_default ${env.Build_Package}
+									sh ./deploy.sh SOA composite_default ${env.Build_Package}
 									"""
 								}
 							}
@@ -167,7 +167,7 @@ pipeline {
 									echo 'This is Deploy SOA Composite - DCCi'
 									sh """
 									cd ${env.Build_Package}/Scripts
-									sh ./deploy_mtp_fusion.sh SOA composite_DCCI ${env.Build_Package}
+									sh ./deploy.sh SOA composite_DCCI ${env.Build_Package}
 									"""
 								}
 							}
@@ -178,7 +178,7 @@ pipeline {
 									echo 'This is Deploy SOA Composite - CCB2'
 									sh """
 									cd ${env.Build_Package}/Scripts
-									sh ./deploy_mtp_fusion.sh SOA composite_CCB2 ${env.Build_Package}
+									sh ./deploy.sh SOA composite_CCB2 ${env.Build_Package}
 									"""
 								}
 							}
@@ -195,7 +195,7 @@ pipeline {
 									echo 'This is Tokenise OSB Projects'
 									sh """
 									cd ${env.Build_Package}/Scripts
-									sh ./deploy_mtp_fusion.sh OSB tokenise_osb ${env.Build_Package}
+									sh ./deploy.sh OSB tokenise_osb ${env.Build_Package}
 									"""
 								}
 							}
@@ -206,7 +206,7 @@ pipeline {
 									echo 'This is Build OSB Projects'
 									sh """
 									cd ${env.Build_Package}/Scripts
-									sh ./deploy_mtp_fusion.sh OSB build_osb ${env.Build_Package}
+									sh ./deploy.sh OSB build_osb ${env.Build_Package}
 									"""
 								}
 							}
@@ -217,7 +217,7 @@ pipeline {
 									echo 'This is Deploy OSB Projects'
 									sh """
 									cd ${env.Build_Package}/Scripts
-									sh ./deploy_mtp_fusion.sh OSB deploy_osb ${env.Build_Package}
+									sh ./deploy.sh OSB deploy_osb ${env.Build_Package}
 									"""
 								}
 							}
